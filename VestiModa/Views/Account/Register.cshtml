@@ -1,0 +1,35 @@
+﻿@model UserViewModel
+
+<section>
+    <div class="container-fluid h-custom">
+        <div class="row d-flex justify-content-center align-items-center">
+            <div class="col-md-9 col-lg-6 col-xl-5">
+                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+                     class="img-fluid" alt="Sample image">
+            </div>
+            <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+                <form asp-controller="Account" asp-action="Register" method="post">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="form-group mb-4">
+                        <label asp-for="UserName" class="mb-2"></label>
+                        <input asp-for="UserName" class="form-control" placeholder="Insira seu nome" />
+                        <span asp-validation-for="UserName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-4">
+                        <label asp-for="UserEmail" class="mb-2"> </label>
+                        <input asp-for="UserEmail" class="form-control" placeholder="Insira seu Email"  />
+                        <span asp-validation-for="UserEmail" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-4">
+                        <label asp-for="Password" class="mb-2"></label>
+                        <input asp-for="Password" class="form-control" placeholder="Insira sua Senha" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mt-3">
+                        <input type="submit" class="btn btn-primary " value="Registrar" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
