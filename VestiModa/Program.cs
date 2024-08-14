@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using VestiModa.Context;
+using VestiModa.Middleware;
 using VestiModa.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,9 +14,7 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>()
             .AddEntityFrameworkStores<AppDbContext>()
             .AddDefaultTokenProviders();
 
-
 builder.Services.AddScoped<ISeedUserRoleInitial, SeedUserRoleInitial>();
-
 
 builder.Services.AddAuthorization(options =>
 {
@@ -23,6 +22,14 @@ builder.Services.AddAuthorization(options =>
     {
         politica.RequireRole("Admin");
     });
+});
+
+// Configura a sessão
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30); // Tempo de expiração da sessão
+    options.Cookie.HttpOnly = true; // Configura o cookie da sessão como HTTP only
+    options.Cookie.IsEssential = true; // Torna o cookie essencial para a aplicação funcionar
 });
 
 // Add services to the container.
@@ -34,14 +41,17 @@ var app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
+app.UseMiddleware<ExceptionMiddleware>();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+// Habilita o middleware de sessão
+app.UseSession();
 
 await CriarPerfisUsuarios(app);
 

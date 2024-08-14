@@ -27,16 +27,8 @@
                         </li>
                     </ul>
                 </div>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between" id="navbarColor01">
-                    <ul class="navbar-nav flex-grow-1 flex-sm-row-reverse">
-                        <li class="nav-item">
-                            <a class="nav-link text-secondary-emphasis" asp-area="" asp-controller="Account" asp-action="Register">Registrar</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-secondary-emphasis" asp-area="" asp-controller="Account" asp-action="Login">Entrar</a>
-                        </li>
-                    </ul>
-                </div>
+                @await Html.PartialAsync("_UserPartial")
+                
             </div>
         </nav>
     </header>

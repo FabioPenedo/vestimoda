@@ -12,7 +12,7 @@ namespace VestiModa.ViewModels
 
         [Required(ErrorMessage = "Informe o email")]
         [Display(Name = "Email")]
-        [EmailAddress(ErrorMessage = "Enter com um email válido")]
+        [EmailAddress(ErrorMessage = "Digite um email válido")]
         [DataType(DataType.EmailAddress)]
         public string UserEmail { get; set; } = string.Empty;
 
