@@ -49,6 +49,7 @@ namespace VestiModa.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(UserViewModel loginVM)
         {
             ModelState.Remove("UserName");
@@ -87,11 +88,17 @@ namespace VestiModa.Controllers
             return View(loginVM);
         }
 
+        [HttpPost]
         public async Task<IActionResult> Logout()
         {
             HttpContext.Session.Clear();
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
+        }
+
+        public IActionResult AccessDenied()
+        {
+            return View();
         }
     }
 }

@@ -9,9 +9,12 @@
           method="post" class="navbar-left">
         <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between" id="navbarColor01">
             <ul class="navbar-nav flex-grow-1 flex-sm-row-reverse">
-                <button type="submit" style="width:auto" class="nav-link btn btn-link py-0">
+                @* <button type="submit" style="width:auto" class="nav-link btn btn-link py-0">
                     Logout : @User.Identity?.Name &nbsp;
-                </button>
+                </button> *@
+                <li class="nav-item">
+                    <input class="nav-link text-secondary-emphasis" type="submit" name="name" value="Sair" />
+                </li>
             </ul>
         </div>
     </form>
