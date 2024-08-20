@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using VestiModa.Context;
 using VestiModa.Middleware;
+using VestiModa.Models;
 using VestiModa.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,7 +15,9 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>()
             .AddEntityFrameworkStores<AppDbContext>()
             .AddDefaultTokenProviders();
 
+builder.Services.Configure<ConfigurationImages>(builder.Configuration.GetSection("ConfigurationPastaImagens"));
 builder.Services.AddScoped<ISeedUserRoleInitial, SeedUserRoleInitial>();
+
 
 builder.Services.AddAuthorization(options =>
 {
@@ -27,7 +30,7 @@ builder.Services.AddAuthorization(options =>
 // Configura a sessão
 builder.Services.AddSession(options =>
 {
-    options.IdleTimeout = TimeSpan.FromMinutes(30); // Tempo de expiração da sessão
+    options.IdleTimeout = TimeSpan.FromMinutes(10); // Tempo de expiração da sessão
     options.Cookie.HttpOnly = true; // Configura o cookie da sessão como HTTP only
     options.Cookie.IsEssential = true; // Torna o cookie essencial para a aplicação funcionar
 });

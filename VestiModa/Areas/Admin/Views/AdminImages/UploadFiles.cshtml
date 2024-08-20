@@ -1,0 +1,23 @@
+﻿<div class="jumbotron">
+    <div class="container">
+        @if (ViewData["Erro"] != null)
+        {
+            <div class="alert alert-dismissible alert-warning"> 
+                <h4 class="alert-heading">Erro!</h4>
+                <p class="mb-0">@ViewData["Erro"]</p>
+            </div>
+            <a asp-area="Admin" asp-controller="AdminImages" asp-action="Index" style="text-decoration: none; color: inherit;">
+                <button type="button" class="btn btn-outline-primary">Voltar</button>
+            </a>
+        }
+    </div>
+    <div class="container">
+        @if(ViewData["Resultado"] != null)
+        {
+            <div class="alert alert-dismissible alert-success">
+                @ViewData["Resultado"]
+            </div>
+        }
+    </div>
+
+</div>

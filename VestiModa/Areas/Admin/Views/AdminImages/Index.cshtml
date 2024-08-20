@@ -1,0 +1,29 @@
+﻿<div class="container">
+    <div class="row">
+        <div class="col">
+            <form method="post" enctype="multipart/form-data" asp-controller="AdminImages" asp-action="UploadFiles">
+                <fieldset>
+                    <img src="~/images/upload.png" class="img-fluid" width="250" height="250" />
+                    <hr />
+                    <div>
+                        <label for="formFile" class="form-label mt-4">Selecione um ou mais arquivos para enviar</label>
+                        <input class="form-control" name="files" type="file" multiple id="formFile">
+                    </div>
+                    <button type="submit" class="btn btn-outline-primary mt-4">Enviar arquivo</button>
+                </fieldset>
+            </form>
+        </div>
+        <div class="col">
+            <form method="post" enctype="multipart/form-data" asp-controller="AdminImages" asp-action="GetImages">
+                <fieldset>
+                    <img src="~/images/lupa.png" class="img-fluid" width="250" height="250" />
+                    <hr />
+                    <div>
+                        <p><strong>Visualizar Imagens na pasta do servidor :</strong></p>
+                    </div>
+                    <button type="submit" class="btn btn-outline-primary mt-4">Visualizar arquivos</button>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
