@@ -61,5 +61,30 @@ namespace VestiModa.Areas.Admin.Controllers
                                     $"com tamanho total de: {size} bytes";
             return View(ViewData);
         }
+
+        public IActionResult GetImages()
+        {
+            FileManagerModel model = new();
+
+            string userImagesPath = Path.Combine(_webHostEnvironment.WebRootPath,
+                _myConfig.NomePastaImagensProdutos);
+
+            DirectoryInfo dir = new DirectoryInfo(userImagesPath);
+
+            FileInfo[] files = dir.GetFiles();
+
+            model.PathImagesProduct = _myConfig.NomePastaImagensProdutos;
+
+            if (files.Length == 0)
+            {
+                ViewData["Erro"] = $"Nenhum arquivo encontrado na pasta {_myConfig.NomePastaImagensProdutos}";
+                model.Files = null;
+                return View(model);
+            }
+
+            model.Files = files;
+
+            return View(model);
+        }
     }
 }
