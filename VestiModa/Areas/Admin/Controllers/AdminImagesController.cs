@@ -86,5 +86,19 @@ namespace VestiModa.Areas.Admin.Controllers
 
             return View(model);
         }
+
+        public IActionResult DeleteFile(string fname)
+        {
+            string imageDelete = Path.Combine(_webHostEnvironment.WebRootPath,
+               _myConfig.NomePastaImagensProdutos + "\\", fname);
+
+            if (System.IO.File.Exists(imageDelete))
+            {
+                System.IO.File.Delete(imageDelete);
+                ViewData["Deletado"] = "Arquivo deletado com sucesso";
+            }
+
+            return View(nameof(Index));
+        }
     }
 }

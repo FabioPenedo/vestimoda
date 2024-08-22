@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using VestiModa.Context;
 using VestiModa.Middleware;
 using VestiModa.Models;
+using VestiModa.Repositories;
+using VestiModa.Repositories.Interfaces;
 using VestiModa.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,6 +18,8 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>()
             .AddDefaultTokenProviders();
 
 builder.Services.Configure<ConfigurationImages>(builder.Configuration.GetSection("ConfigurationPastaImagens"));
+
+builder.Services.AddTransient<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<ISeedUserRoleInitial, SeedUserRoleInitial>();
 
 

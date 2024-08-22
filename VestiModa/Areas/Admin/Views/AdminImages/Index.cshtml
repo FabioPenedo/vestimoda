@@ -26,4 +26,12 @@
             </form>
         </div>
     </div>
+    @if(ViewData["Deletado"] != null)
+    {
+        <div class="alert alert-dismissible alert-warning mt-3">
+            <h4 class="alert-heading">Deletado</h4>
+            <p class="mb-0">@ViewData["Deletado"]</p>
+        </div>
+    }
+
 </div>
