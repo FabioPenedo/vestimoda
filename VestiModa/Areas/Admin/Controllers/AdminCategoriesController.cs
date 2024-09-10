@@ -44,9 +44,38 @@ namespace VestiModa.Areas.Admin.Controllers
             return View(category);
         }
 
+        public async Task<IActionResult> Edit(int id)
+        {
+            var category = await _categoryRepository.GetCategoryByIdAsync(id);
+            if (category == null)
+            {
+                return NotFound();
+            }
+            return View(category);
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("CategoryId, Name, Description")] Category category)
+        {
+            if(id != category.CategoryId)
+            {
+                return NotFound();
+            }
+
+            if(ModelState.IsValid)
+            {
+                _context.Update(category);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(category);
+        }
+
         public async Task<IActionResult> Details(int id)
         {
-            var category = await _context.Categories.FirstOrDefaultAsync(m => m.CategoryId == id);
+            var category = await _categoryRepository.GetCategoryByIdAsync(id);
             if (category == null)
             {
                 return NotFound();
@@ -56,7 +85,7 @@ namespace VestiModa.Areas.Admin.Controllers
 
         public async Task<IActionResult> Delete(int id)
         {
-            var category = await _context.Categories.FirstOrDefaultAsync(m => m.CategoryId == id);
+            var category = await _categoryRepository.GetCategoryByIdAsync(id);
             if (category == null)
             {
                 return NotFound();
@@ -68,9 +97,9 @@ namespace VestiModa.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var category = await _context.Categories.FirstAsync(m => m.CategoryId == id);
+            var category = await _categoryRepository.GetCategoryByIdAsync(id);
 
-            if(category == null)
+            if (category == null)
             {
                 return NotFound();
             }
