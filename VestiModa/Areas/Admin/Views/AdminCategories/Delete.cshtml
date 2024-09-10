@@ -1,0 +1,51 @@
+﻿@model VestiModa.Models.Category
+
+<h4>Categoria</h4>
+<hr />
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+    </dl>
+</div>
+<div>
+    <!-- Botão para abrir o modal de confirmação de exclusão -->
+    <a href="#" class="btn btn-outline-danger mb-3" data-bs-toggle="modal" data-bs-target="#deleteModal">
+        Deletar
+    </a> |
+    <a asp-action="Index" class="btn btn-outline-secondary mb-3">Voltar para a lista</a>
+</div>
+
+<!-- Modal de confirmação de exclusão -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Confirmar Exclusão</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Tem certeza de que deseja deletar esta categoria?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+
+                <!-- Formulário de exclusão com método POST -->
+                <form asp-action="Delete">
+                    <input type="hidden" asp-for="CategoryId" />
+                    <input type="submit" value="Deletar" class="btn btn-danger" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

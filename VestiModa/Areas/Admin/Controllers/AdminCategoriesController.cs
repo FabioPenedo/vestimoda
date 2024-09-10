@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using VestiModa.Context;
 using VestiModa.Models;
 using VestiModa.Repositories.Interfaces;
@@ -34,13 +35,50 @@ namespace VestiModa.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("CategoryId, Name, Description")] Category category)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 _context.Add(category);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(category);
+        }
+
+        public async Task<IActionResult> Details(int id)
+        {
+            var category = await _context.Categories.FirstOrDefaultAsync(m => m.CategoryId == id);
+            if (category == null)
+            {
+                return NotFound();
+            }
+            return View(category);
+        }
+
+        public async Task<IActionResult> Delete(int id)
+        {
+            var category = await _context.Categories.FirstOrDefaultAsync(m => m.CategoryId == id);
+            if (category == null)
+            {
+                return NotFound();
+            }
+            return View(category);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var category = await _context.Categories.FirstAsync(m => m.CategoryId == id);
+
+            if(category == null)
+            {
+                return NotFound();
+            }
+
+            _context.Categories.Remove(category);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }
