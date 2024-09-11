@@ -10,14 +10,14 @@ namespace VestiModa.Models
 
 
         [Required(ErrorMessage = "O nome do produto deve ser informado")]
-        [Display(Name = "Nome do produto")]
+        [Display(Name = "Nome")]
         [StringLength(80, MinimumLength = 10, ErrorMessage = "O {0} deve ter no mínimo {1} e no máximo {2}")]
         public string Name { get; set; } = string.Empty;
 
 
 
         [Required(ErrorMessage = "A descrição do produto deve ser informada")]
-        [Display(Name = "Descrição do produto")]
+        [Display(Name = "Descrição")]
         [MinLength(20, ErrorMessage = "A descrição deve ter no mínimo {1} caracteres")]
         [MaxLength(200, ErrorMessage = "A descrição pode exceder {1} caracteres")]
         public string Description { get; set; } = string.Empty;

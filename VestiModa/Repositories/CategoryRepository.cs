@@ -9,9 +9,9 @@ namespace VestiModa.Repositories
     {
         private readonly AppDbContext _context;
 
-        public CategoryRepository(AppDbContext appDbContext)
+        public CategoryRepository(AppDbContext context)
         {
-            _context = appDbContext;
+            _context = context;
         }
 
         public async Task<IEnumerable<Category>> GetCategoriesAsync()

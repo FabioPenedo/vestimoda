@@ -49,7 +49,8 @@ namespace VestiModa.Areas.Admin.Controllers
             var category = await _categoryRepository.GetCategoryByIdAsync(id);
             if (category == null)
             {
-                return NotFound();
+                ViewData["Erro"] = "O ID do usuário não foi encontrado";
+                return View("NotFound");
             }
             return View(category);
         }
@@ -61,7 +62,8 @@ namespace VestiModa.Areas.Admin.Controllers
         {
             if(id != category.CategoryId)
             {
-                return NotFound();
+                ViewData["Erro"] = "O ID do usuário não foi encontrado";
+                return View("NotFound");
             }
 
             if(ModelState.IsValid)
@@ -78,7 +80,8 @@ namespace VestiModa.Areas.Admin.Controllers
             var category = await _categoryRepository.GetCategoryByIdAsync(id);
             if (category == null)
             {
-                return NotFound();
+                ViewData["Erro"] = "O ID do usuário não foi encontrado";
+                return View("NotFound");
             }
             return View(category);
         }
@@ -88,7 +91,8 @@ namespace VestiModa.Areas.Admin.Controllers
             var category = await _categoryRepository.GetCategoryByIdAsync(id);
             if (category == null)
             {
-                return NotFound();
+                ViewData["Erro"] = "O ID do usuário não foi encontrado";
+                return View("NotFound");
             }
             return View(category);
         }
@@ -101,7 +105,8 @@ namespace VestiModa.Areas.Admin.Controllers
 
             if (category == null)
             {
-                return NotFound();
+                ViewData["Erro"] = "O ID do usuário não foi encontrado";
+                return View("NotFound");
             }
 
             _context.Categories.Remove(category);
