@@ -16,7 +16,7 @@ namespace VestiModa.Repositories
 
         public async Task<IEnumerable<Category>> GetCategoriesAsync()
         {
-            return await _context.Categories.ToListAsync();
+            return await _context.Categories.OrderBy(x => x.Name).ToListAsync();
         }
 
         public async Task<Category> GetCategoryByIdAsync(int id)

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace VestiModa.Models
@@ -11,7 +12,8 @@ namespace VestiModa.Models
 
         [Required(ErrorMessage = "O nome do produto deve ser informado")]
         [Display(Name = "Nome")]
-        [StringLength(80, MinimumLength = 10, ErrorMessage = "O {0} deve ter no mínimo {1} e no máximo {2}")]
+        [MinLength(10, ErrorMessage = "O nome deve ter no mínimo {1} caracteres")]
+        [MaxLength(100, ErrorMessage = "O nome não pode exceder {1} caracteres")]
         public string Name { get; set; } = string.Empty;
 
 
@@ -19,7 +21,7 @@ namespace VestiModa.Models
         [Required(ErrorMessage = "A descrição do produto deve ser informada")]
         [Display(Name = "Descrição")]
         [MinLength(20, ErrorMessage = "A descrição deve ter no mínimo {1} caracteres")]
-        [MaxLength(200, ErrorMessage = "A descrição pode exceder {1} caracteres")]
+        [MaxLength(200, ErrorMessage = "A descrição não pode exceder {1} caracteres")]
         public string Description { get; set; } = string.Empty;
 
 
@@ -40,6 +42,8 @@ namespace VestiModa.Models
 
 
         public int CategoryId { get; set; }
+
+        [ValidateNever]
         public virtual Category Category { get; set; } = null!;
 
     }
