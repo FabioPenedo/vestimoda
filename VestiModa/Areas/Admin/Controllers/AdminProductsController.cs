@@ -51,6 +51,17 @@ namespace VestiModa.Areas.Admin.Controllers
             return View(product);
         }
 
+        public async Task<IActionResult> Details(int id)
+        {
+            var product = await _productRepository.GetProductByIdAsync(id);
+            if (product == null)
+            {
+                ViewData["Erro"] = "O ID do usuário não foi encontrado";
+                return View("NotFound");
+            }
+            return View(product);
+        }
+
 
         public async Task<IActionResult> Delete(int id)
         {
