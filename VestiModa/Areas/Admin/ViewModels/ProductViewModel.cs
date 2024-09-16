@@ -15,7 +15,10 @@ namespace VestiModa.Areas.Admin.ViewModels
             Categories = categories;
         }
 
+        public ProductViewModel() { }
+
+
         public Product Product { get; set; } = null!;
-        public IEnumerable<Category> Categories { get; set; }
+        public IEnumerable<Category> Categories { get; set; } = null!;
     }
 }

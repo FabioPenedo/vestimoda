@@ -40,7 +40,7 @@ namespace VestiModa.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Product product)
+        public async Task<IActionResult> Create([Bind("ProductId, Name, Description, Price, StockQuantity, CategoryId")] Product product)
         {
             if(ModelState.IsValid)
             {
@@ -48,7 +48,44 @@ namespace VestiModa.Areas.Admin.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(product);
+
+            var categories = await _categoryRepository.GetCategoriesAsync();
+            var viewModel = new ProductViewModel(product, categories);
+            return View(viewModel);
+        }
+
+        public async Task<IActionResult> Edit(int id)
+        {
+            var categories = await _categoryRepository.GetCategoriesAsync();
+            var product = await _productRepository.GetProductByIdAsync(id);
+            var viewModel = new ProductViewModel(product, categories);    
+            if (product == null)
+            {
+                ViewData["Erro"] = "O ID do usuário não foi encontrado";
+                return View("NotFound");
+            }
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("ProductId, Name, Description, Price, StockQuantity, CategoryId")] Product product)
+        {
+            if (id != product.ProductId)
+            {
+                ViewData["Erro"] = "O ID do usuário não foi encontrado";
+                return View("NotFound");
+            }
+
+            if (ModelState.IsValid)
+            {
+                _context.Update(product);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            var categories = await _categoryRepository.GetCategoriesAsync();
+            var viewModel = new ProductViewModel(product, categories);
+            return View(viewModel);
         }
 
         public async Task<IActionResult> Details(int id)

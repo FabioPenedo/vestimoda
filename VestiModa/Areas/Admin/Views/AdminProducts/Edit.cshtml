@@ -1,0 +1,41 @@
+﻿@model VestiModa.Areas.Admin.ViewModels.ProductViewModel
+
+
+<h4>Produto</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Product.ProductId" />
+            <div class="form-group mb-4">
+                <label asp-for="Product.Name" class="control-label mb-2"></label>
+                <input asp-for="Product.Name" class="form-control" value="@Model.Product.Name" />
+                <span asp-validation-for="Product.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-4">
+                <label asp-for="Product.Description" class="control-label mb-2"></label>
+                <input asp-for="Product.Description" class="form-control" value="@Model.Product.Description" />
+                <span asp-validation-for="Product.Description" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-4">
+                <label asp-for="Product.Price" class="control-label mb-2"></label>
+                <input asp-for="Product.Price" class="form-control" value="@Model.Product.Price "/>
+                <span asp-validation-for="Product.Price" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-4">
+                <label asp-for="Product.StockQuantity" class="control-label mb-2"></label>
+                <input asp-for="Product.StockQuantity" class="form-control" value="@Model.Product.StockQuantity" />
+                <span asp-validation-for="Product.StockQuantity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Product.CategoryId" class="control-label mb-2">Categorias</label>
+                <select asp-for="Product.CategoryId" class="form-control" asp-items="@(new SelectList(Model.Categories, "CategoryId", "Name"))"></select>
+            </div>
+            <div class="form-group mt-3 mb-3">
+                <input type="submit" value="Salvar" class="btn btn-outline-primary mb-3" />
+                <a asp-action="Index" class="btn btn-outline-secondary mb-3">Voltar para a lista</a>
+            </div>
+        </form>
+    </div>
+</div>
