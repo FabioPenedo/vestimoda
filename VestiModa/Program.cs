@@ -72,6 +72,12 @@ app.MapControllerRoute(
     pattern: "{area:exists}/{controller=Admin}/{action=Index}/{id?}");
 
 app.MapControllerRoute(
+    name: "filterCategory",
+    pattern: "Product/{action}/{category?}",
+    defaults: new { controller = "Home", action = "Index" });
+
+
+app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
