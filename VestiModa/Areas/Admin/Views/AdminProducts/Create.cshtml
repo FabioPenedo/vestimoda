@@ -27,9 +27,14 @@
                 <input asp-for="Product.StockQuantity" class="form-control" />
                 <span asp-validation-for="Product.StockQuantity" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group mb-4">
                 <label asp-for="Product.CategoryId" class="control-label mb-2">Categorias</label>
                 <select asp-for="Product.CategoryId" class="form-control" asp-items="@(new SelectList(Model.Categories, "CategoryId", "Name"))"></select>
+            </div>
+            <div class="form-group ">
+                <label asp-for="Product.ImageName" class="control-label mb-2">Selecionar Imagem</label>
+                <select asp-for="Product.ImageName" class="form-control" asp-items="@(new SelectList(Model.ImageNames))"></select>
+                <span asp-validation-for="Product.ImageName" class="text-danger"></span>
             </div>
             <div class="form-group mt-3 mb-3">
                 <input type="submit" value="Criar" class="btn btn-outline-primary mb-3" />

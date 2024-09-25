@@ -40,6 +40,11 @@ namespace VestiModa.Models
         public int StockQuantity { get; set; } = 0;
 
 
+        [Display(Name = "Nome da imagem")]
+        [MaxLength(255, ErrorMessage = "O nome do arquivo da imagem não pode exceder {1} caracteres.")]
+        public string ImageName { get; set; } = string.Empty;
+
+
 
         public int CategoryId { get; set; }
 

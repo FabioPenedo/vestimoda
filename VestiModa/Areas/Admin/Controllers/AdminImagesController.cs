@@ -16,7 +16,6 @@ namespace VestiModa.Areas.Admin.Controllers
         {
             _webHostEnvironment = hostEnvironment;
             _myConfig = myConfiguration.Value;
-
         }
 
         public IActionResult Index()

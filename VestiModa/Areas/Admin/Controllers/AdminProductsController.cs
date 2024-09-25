@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using VestiModa.Areas.Admin.ViewModels;
 using VestiModa.Context;
 using VestiModa.Models;
@@ -17,12 +18,20 @@ namespace VestiModa.Areas.Admin.Controllers
         private readonly AppDbContext _context;
         private readonly IProductRepository _productRepository;
         private readonly ICategoryRepository _categoryRepository;
+        private readonly ConfigurationImages _myConfig;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public AdminProductsController(AppDbContext context, IProductRepository productRepository, ICategoryRepository categoryRepository)
+        public AdminProductsController(AppDbContext context, 
+            IProductRepository productRepository, 
+            ICategoryRepository categoryRepository,
+            IWebHostEnvironment hostEnvironment,
+            IOptions<ConfigurationImages> myConfiguration)
         {
             _context = context;
             _productRepository = productRepository;
             _categoryRepository = categoryRepository;
+            _webHostEnvironment = hostEnvironment;
+            _myConfig = myConfiguration.Value;
         }
 
         public async Task<IActionResult> Index()
@@ -33,14 +42,17 @@ namespace VestiModa.Areas.Admin.Controllers
 
         public async Task<IActionResult> Create()
         {
+            string userImagesPath = Path.Combine(_webHostEnvironment.WebRootPath, _myConfig.NomePastaImagensProdutos);
+            var imageNames = Directory.GetFiles(userImagesPath).Select(Path.GetFileName).ToList();
+
             var categories = await _categoryRepository.GetCategoriesAsync();
-            var viewModel = new ProductViewModel(categories);
+            var viewModel = new ProductViewModel(categories, imageNames);
             return View(viewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ProductId, Name, Description, Price, StockQuantity, CategoryId")] Product product)
+        public async Task<IActionResult> Create([Bind("ProductId, Name, Description, Price, StockQuantity, ImageName, CategoryId")] Product product)
         {
             if(ModelState.IsValid)
             {
@@ -50,7 +62,11 @@ namespace VestiModa.Areas.Admin.Controllers
             }
 
             var categories = await _categoryRepository.GetCategoriesAsync();
-            var viewModel = new ProductViewModel(product, categories);
+
+            string userImagesPath = Path.Combine(_webHostEnvironment.WebRootPath, _myConfig.NomePastaImagensProdutos);
+            var imageNames = Directory.GetFiles(userImagesPath).Select(Path.GetFileName).ToList();
+
+            var viewModel = new ProductViewModel(product, categories, imageNames);
             return View(viewModel);
         }
 
