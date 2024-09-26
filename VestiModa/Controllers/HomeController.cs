@@ -20,7 +20,7 @@ namespace VestiModa.Controllers
             _categoryRepository = categoryRepository;
         }
 
-        public async Task<IActionResult> Index(string category)
+        public async Task<IActionResult> Index()
         {
             IEnumerable<Product> products = await _productRepository.GetProductAsync();
             return View(products);

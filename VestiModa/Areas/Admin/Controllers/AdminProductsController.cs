@@ -72,9 +72,12 @@ namespace VestiModa.Areas.Admin.Controllers
 
         public async Task<IActionResult> Edit(int id)
         {
+            string userImagesPath = Path.Combine(_webHostEnvironment.WebRootPath, _myConfig.NomePastaImagensProdutos);
+            var imageNames = Directory.GetFiles(userImagesPath).Select(Path.GetFileName).ToList();
+
             var categories = await _categoryRepository.GetCategoriesAsync();
             var product = await _productRepository.GetProductByIdAsync(id);
-            var viewModel = new ProductViewModel(product, categories);    
+            var viewModel = new ProductViewModel(product, categories, imageNames);    
             if (product == null)
             {
                 ViewData["Erro"] = "O ID do usuário não foi encontrado";
@@ -85,7 +88,7 @@ namespace VestiModa.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ProductId, Name, Description, Price, StockQuantity, CategoryId")] Product product)
+        public async Task<IActionResult> Edit(int id, [Bind("ProductId, Name, Description, Price, StockQuantity, ImageName, CategoryId")] Product product)
         {
             if (id != product.ProductId)
             {
@@ -99,8 +102,11 @@ namespace VestiModa.Areas.Admin.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            string userImagesPath = Path.Combine(_webHostEnvironment.WebRootPath, _myConfig.NomePastaImagensProdutos);
+            var imageNames = Directory.GetFiles(userImagesPath).Select(Path.GetFileName).ToList();
+
             var categories = await _categoryRepository.GetCategoriesAsync();
-            var viewModel = new ProductViewModel(product, categories);
+            var viewModel = new ProductViewModel(product, categories, imageNames);
             return View(viewModel);
         }
 

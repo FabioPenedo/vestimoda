@@ -1,69 +1,27 @@
-﻿<div class="container">
+﻿@model IEnumerable<Product>
+
+<div class="container">
     <div class="row">
-        <div class="col-sm-4">
-            <div class="card mb-3">
-                <h3 class="card-header">Nome do produto</h3>
-                <div class="card-body">
-                    <h6 class="card-subtitle text-muted">descrição</h6>
-                </div>
-                <svg xmlns="http://www.w3.org/2000/svg" class="d-block user-select-none" width="100%" height="200" aria-label="Placeholder: Image cap" focusable="false" role="img" preserveAspectRatio="xMidYMid slice" viewBox="0 0 318 180" style="font-size:1.125rem;text-anchor:middle">
-                    <rect width="100%" height="100%" fill="#868e96"></rect>
-                    <text x="50%" y="50%" fill="#dee2e6" dy=".3em">Image cap</text>
-                </svg>
-                <div class="card-body">
-                    <h4 class="card-text">Preço</h4>
-                </div>
-                <div class="card-body">
-                    <a asp-controller="CartPurchase" asp-action="AddItemToCart" asp-route-productId=""
-                       style="text-decoration: none; color: inherit;" class="card-link">
-                        <button type="button" class="btn btn-outline-primary">Incluir no carrinho</button>
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-sm-4">
-            <div class="card mb-3">
-                <h3 class="card-header">Nome do produto</h3>
-                <div class="card-body">
-                    <h6 class="card-subtitle text-muted">descrição</h6>
-                </div>
-                <svg xmlns="http://www.w3.org/2000/svg" class="d-block user-select-none" width="100%" height="200" aria-label="Placeholder: Image cap" focusable="false" role="img" preserveAspectRatio="xMidYMid slice" viewBox="0 0 318 180" style="font-size:1.125rem;text-anchor:middle">
-                    <rect width="100%" height="100%" fill="#868e96"></rect>
-                    <text x="50%" y="50%" fill="#dee2e6" dy=".3em">Image cap</text>
-                </svg>
-                <div class="card-body">
-                    <h4 class="card-text">Preço</h4>
-                </div>
-                <div class="card-body">
-                    <a asp-controller="CartPurchase" asp-action="AddItemToCart" asp-route-productId=""
-                       style="text-decoration: none; color: inherit;" class="card-link">
-                        <button type="button" class="btn btn-outline-primary">Incluir no carrinho</button>
-                    </a>
+        @foreach (var product in Model)
+        {
+            <div class="col-sm-4">
+                <div class="card mb-3">
+                    <h3 class="card-header">@product.Name</h3>
+                    <div class="card-body">
+                        <h6 class="card-subtitle text-muted">@product.Description</h6>
+                    </div>
+                    <img src="~/images/produtos/@product.ImageName" alt="@product.Name" class="d-block w-100" height="200" style="object-fit: cover;">
+                    <div class="card-body">
+                        <h4 class="card-text">R$ @product.Price</h4>
+                    </div>
+                    <div class="card-body">
+                        <a asp-controller="CartPurchase" asp-action="AddItemToCart" asp-route-productId="@product.ProductId"
+                           style="text-decoration: none; color: inherit;" class="card-link">
+                            <button type="button" class="btn btn-outline-primary">Incluir no carrinho</button>
+                        </a>
+                    </div>
                 </div>
             </div>
-        </div>
-
-        <div class="col-sm-4">
-            <div class="card mb-3">
-                <h3 class="card-header">Nome do produto</h3>
-                <div class="card-body">
-                    <h6 class="card-subtitle text-muted">descrição</h6>
-                </div>
-                <svg xmlns="http://www.w3.org/2000/svg" class="d-block user-select-none" width="100%" height="200" aria-label="Placeholder: Image cap" focusable="false" role="img" preserveAspectRatio="xMidYMid slice" viewBox="0 0 318 180" style="font-size:1.125rem;text-anchor:middle">
-                    <rect width="100%" height="100%" fill="#868e96"></rect>
-                    <text x="50%" y="50%" fill="#dee2e6" dy=".3em">Image cap</text>
-                </svg>
-                <div class="card-body">
-                    <h4 class="card-text">Preço</h4>
-                </div>
-                <div class="card-body">
-                    <a asp-controller="CartPurchase" asp-action="AddItemToCart" asp-route-productId=""
-                       style="text-decoration: none; color: inherit;" class="card-link">
-                        <button type="button" class="btn btn-outline-primary">Incluir no carrinho</button>
-                    </a>
-                </div>
-            </div>
-        </div>
+        }
     </div>
 </div>
