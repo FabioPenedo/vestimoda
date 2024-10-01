@@ -20,18 +20,18 @@ namespace VestiModa.Controllers
             _categoryRepository = categoryRepository;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string category)
         {
-            IEnumerable<Product> products = await _productRepository.GetProductAsync();
+            IEnumerable<Product> products;
+            if (String.IsNullOrEmpty(category))
+            {
+                products = await _productRepository.GetProductAsync();
+                return View(products);
+            }
+
+            products = await _productRepository.GetProductsByNameAsync(category);
             return View(products);
         }
-
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
