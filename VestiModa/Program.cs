@@ -32,6 +32,9 @@ builder.Services.AddAuthorization(options =>
     });
 });
 
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+
 // Configura a sessão
 builder.Services.AddSession(options =>
 {
