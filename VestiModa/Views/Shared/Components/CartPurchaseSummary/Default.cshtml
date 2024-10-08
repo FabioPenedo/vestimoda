@@ -1,0 +1,27 @@
+﻿@model CartPurchaseViewModel
+
+@if (Model.CartPurchase != null)
+{
+    @if (Model.CartPurchase.Items != null && Model.CartPurchase.Items.Count > 0)
+    {
+        <a asp-controller="CartPurchase" asp-action="Index" class="position-relative text-decoration-none">
+            <img src="~/images/cart.png" alt="Carrinho de Compras" class="cart-icon" />
+            <span class="badge bg-danger position-absolute top-0 start-100 translate-middle rounded-pill">
+                @Model.CartPurchase.Items.Count
+            </span>
+        </a>
+    }
+    else
+    {
+        <a asp-controller="CartPurchase" asp-action="Index">
+            <img src="~/images/cart.png" alt="Carrinho de Compras" class="cart-icon" />
+        </a>
+    }
+}
+
+<style>
+    .cart-icon {
+        width: 40px;
+        height: 40px;
+    }
+</style>

@@ -2,19 +2,20 @@
 using VestiModa.Models;
 using VestiModa.ViewModels;
 
-namespace VestiModa.Controllers
+namespace VestiModa.Components
 {
-    public class CartPurchaseController : Controller
+    public class CartPurchaseSummary : ViewComponent
     {
         private readonly CartPurchase _cartPurchase;
 
-        public CartPurchaseController(CartPurchase cartPurchase)
+        public CartPurchaseSummary(CartPurchase cartPurchase)
         {
             _cartPurchase = cartPurchase;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IViewComponentResult> InvokeAsync()
         {
+
             var items = await _cartPurchase.GetCartPurchaseItemsAsync();
             _cartPurchase.Items = items;
 

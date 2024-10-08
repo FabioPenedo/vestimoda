@@ -33,6 +33,7 @@ builder.Services.AddAuthorization(options =>
 });
 
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+builder.Services.AddScoped(options => CartPurchase.GetCart(options));
 
 
 // Configura a sessão

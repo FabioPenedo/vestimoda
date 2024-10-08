@@ -1,40 +1,62 @@
-﻿@model IEnumerable<VestiModa.Models.Category>
+﻿@model CartPurchaseViewModel
 
-<p>
-    <a asp-action="Create">Criar Novo</a>
-</p>
-<table class="table">
+
+<table class="table table-bordeared table-striped">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th></th>
+            <th>Quantidade</th>
+            <th>Lanche</th>
+            <th class="text-right">Preço</th>
+            <th class="text-right">Subtotal</th>
         </tr>
     </thead>
     <tbody>
-        @{
-            var isEven = false; // Variável de controle
-        }
-        @foreach (var item in Model)
+        @if (Model.CartPurchase?.Items != null)
         {
-            <tr class="@(isEven ? "table-light" : "")">
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.CategoryId">Editar</a> |
-                    <a asp-action="Details" asp-route-id="@item.CategoryId">Detalhes</a> |
-                    <a asp-action="Delete" asp-route-id="@item.CategoryId">Deletar</a>
-                </td>
+            @foreach (var item in Model.CartPurchase.Items)
+            {
+                <tr>
+                    <td class="text-center">@item.Amount</td>
+                    <td class="text-left">@item.Product.Name</td>
+                    <td class="text-right">@item.Product.Price.ToString("c")</td>
+                    <td class="text-right">
+                        @((item.Amount * item.Product.Price).ToString("c"))
+                    </td>
+                    <td class="text-center">
+                        <a asp-controller="CartPurchase" asp-action="RemoveItemToCart"
+                           asp-route-productId="@item.Product.ProductId">
+                            <img src="~/images/delete.png" width="20px" height="20px" />
+                        </a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="5" class="text-center">O carrinho está vazio.</td>
             </tr>
-            isEven = !isEven;
         }
     </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="3" class="text-right">Total:</td>
+            <td class="text-right">
+                @Model.CartPurchaseTotal.ToString("c")
+            </td>
+        </tr>
+    </tfoot>
 </table>
+
+<div class="container">
+    <div class="row">
+        <div class="text-right">
+            <div class="btn-group">
+                <a class="btn btn-success" asp-controller="Order" asp-action="Checkout">Encerrar Pedido</a>
+                &nbsp;&nbsp;&nbsp;
+                <a class="btn btn-primary" asp-controller="Home" asp-action="Index">Continuar Comprando</a>
+            </div>
+        </div>
+        <br />
+    </div>
+</div>
