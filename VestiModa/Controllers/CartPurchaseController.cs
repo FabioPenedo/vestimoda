@@ -43,5 +43,16 @@ namespace VestiModa.Controllers
             }
             return RedirectToAction(nameof(Index));
         }
+
+        [Authorize]
+        public async Task<IActionResult> RemoveItemToCart(int productId)
+        {
+            var selectedProduct = await _productRepository.GetProductByIdAsync(productId);
+            if (selectedProduct != null)
+            {
+                await _cartPurchase.RemoveFromCartAsync(selectedProduct);
+            }
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
