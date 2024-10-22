@@ -6,8 +6,11 @@ using VestiModa.Models;
 using VestiModa.Repositories;
 using VestiModa.Repositories.Interfaces;
 using VestiModa.Services;
+using Stripe;
 
 var builder = WebApplication.CreateBuilder(args);
+
+StripeConfiguration.ApiKey = builder.Configuration["Stripe:SecretKey"];
 
 string connection = builder.Configuration.GetConnectionString("DefaultConnection")!;
 builder.Services.AddDbContext<AppDbContext>(options =>
