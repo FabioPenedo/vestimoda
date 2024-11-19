@@ -6,8 +6,7 @@ namespace VestiModa.Models
     {
         [Key]
         public int CartId { get; set; }
-
-
+        
 
         public Product Product { get; set; } = null!; 
         public int Amount { get; set; }

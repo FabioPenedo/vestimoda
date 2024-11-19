@@ -39,12 +39,12 @@ builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddScoped(options => CartPurchase.GetCart(options));
 
 
-// Configura a sessão
+// Configure a sessï¿½o
 builder.Services.AddSession(options =>
 {
-    options.IdleTimeout = TimeSpan.FromMinutes(10); // Tempo de expiração da sessão
-    options.Cookie.HttpOnly = true; // Configura o cookie da sessão como HTTP only
-    options.Cookie.IsEssential = true; // Torna o cookie essencial para a aplicação funcionar
+    options.IdleTimeout = TimeSpan.FromMinutes(10); // Tempo de expiraï¿½ï¿½o da sessï¿½o
+    options.Cookie.HttpOnly = true; // Configura o cookie da sessï¿½o como HTTP only
+    options.Cookie.IsEssential = true; // Torna o cookie essencial para a aplicaï¿½ï¿½o funcionar
 });
 
 // Add services to the container.
@@ -65,7 +65,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-// Habilita o middleware de sessão
+// Habilita o middleware de sessï¿½o
 app.UseSession();
 
 await CriarPerfisUsuarios(app);
