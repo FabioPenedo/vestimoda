@@ -26,7 +26,7 @@ namespace VestiModa.Controllers
 
             //Criar uma lista de itens de linha para a sessão de checkout
             var lineItems = new List<SessionLineItemOptions>();
-
+            
 
             // Adiciona cada item do carrinho à sessão de checkout
             foreach (var item in _cartPurchase.Items)
@@ -45,6 +45,7 @@ namespace VestiModa.Controllers
                     Quantity = item.Amount
                 });
             }
+            
 
 
             // Criação da sessão de checkout
